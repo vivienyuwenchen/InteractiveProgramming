@@ -32,6 +32,7 @@ class Game4Main:
         obs_x = self.width
         obs_y = self.height - obs_len
         # create list of obstacles with first obstacle
+        new_obstical = False
         obstacles = [Obstacle(obs_x, obs_y, obs_len, self.screen)]
 
         # initialize time variables
@@ -43,8 +44,12 @@ class Game4Main:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        new_obstical = True
 
             # check keyboard
+            down = pygame.key
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_UP]:
                 player.jump()
@@ -52,6 +57,7 @@ class Game4Main:
                 player.moveLeft()
             if pressed[pygame.K_RIGHT]:
                 player.moveRight()
+            
 
             # refresh screen
             self.screen.fill(colors['BLACK'])
@@ -64,8 +70,9 @@ class Game4Main:
             current_time = pygame.time.get_ticks()
 
             # generate obstacle at random time
-            if current_time - prev_time > obs_dt:
+            if (current_time - prev_time > obs_dt) | new_obstical==True:
                 obstacles.append(Obstacle(obs_x, obs_y, obs_len, self.screen))
+                new_obstical = False
                 prev_time = current_time
                 obs_dt = randint(1000, 3000)
 
@@ -80,7 +87,7 @@ class Game4Main:
 
             # update screen
             pygame.display.flip()
-            self.clock.tick(60)
+            self.clock.tick(30)
 
 
     def gameOver(self):

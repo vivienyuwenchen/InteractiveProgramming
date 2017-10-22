@@ -22,7 +22,7 @@ class Obstacle:
         return 'Obstacle({}, {}, {}, {})'.format(self.obs_x, self.obs_y, self.obs_len, self.screen)
 
     def moveForward(self):
-        self.obs_x -= 2
+        self.obs_x -= 20
         pygame.draw.rect(self.screen, colors['BLUE'], [self.obs_x, self.obs_y, self.obs_len, self.obs_len])
 
     def isGone(self):
@@ -46,7 +46,7 @@ class Player:
         pygame.draw.rect(self.screen, colors['WHITE'], [self.play_x, self.play_y, self.play_len, self.play_len])
 
     def moveRight(self):
-        if self.play_x < 100:
+        if self.play_x < 200:
             self.play_x += self.speed
 
     def moveLeft(self):
@@ -66,7 +66,7 @@ class Player:
             if self.play_y >= self.floor:
                 self.play_y = self.floor
                 self.jumpInProgress = False
-                self.v = 10
+                self.v = 7.5
 
     def isCollide(self, obs_x, obs_y, obs_len):
         obs_x0 = obs_x
@@ -90,7 +90,7 @@ def jump(ctime, startloc, height):
         #print(jump(i,0)[1])
     """
     over = False
-    h = 100
+    h = hight
     t = 20
     b = startloc
     c = t/2
