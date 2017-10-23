@@ -38,7 +38,7 @@ class Player:
         self.screen = screen
         self.speed = 5
         self.jumpInProgress = False
-        self.v = 10
+        self.v = 7.5
         self.m = 2.5
         self.floor = play_y
 
@@ -83,22 +83,27 @@ class Player:
         return False
 
 
-def jump(ctime, startloc, height):
-    """
-    Changes the y position up one frame
-    #for i in range(21):
-        #print(jump(i,0)[1])
-    """
-    over = False
-    h = hight
-    t = 20
-    b = startloc
-    c = t/2
-    a =  h/((t/2)**2)
-    x = (ctime%20)
-    play_y = ((a*(x - c)**2)+b)
+class StaminaBar:
 
+    def __init__(self, screen):
+        self.screen = screen
+        self.bars = 100
+        self.clock = pygame.time.Clock()
+        self.prev_time = 0
+        self.player_jump = False
 
-    if (x == 0):
-        over = True
-    return [play_y, over]
+    def draw(self):
+        pygame.draw.rect(self.screen, colors['WHITE'], [20, 20, self.bars, 10])
+
+    def decreaseBar(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.prev_time >= 100:
+            self.bars -= 10
+            self.prev_time = current_time
+
+    def increaseBar(self):
+        if self.bars < 100:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.prev_time >= 250:
+                self.bars += 1
+                self.prev_time = current_time

@@ -1,7 +1,7 @@
 import os, sys
 import pygame
 from random import randint
-from misc import Obstacle, Player, colors, jump
+from misc import Obstacle, Player, StaminaBar, colors
 
 
 class Game4Main:
@@ -27,6 +27,9 @@ class Game4Main:
         play_y = self.height - play_len
         player = Player(play_x, play_y, play_len, self.screen)
 
+        # initialize stamina bar
+        stamina_bar = StaminaBar(self.screen)
+
         # initialize obstacle length, x and y coordinates
         obs_len = 25
         obs_x = self.width
@@ -49,15 +52,17 @@ class Game4Main:
                         new_obstical = True
 
             # check keyboard
+            pygame.key.set_repeat(500, 30)
             down = pygame.key
             pressed = pygame.key.get_pressed()
-            if pressed[pygame.K_UP]:
+            if pressed[pygame.K_UP] and stamina_bar.bars >= 10:
                 player.jump()
+                stamina_bar.decreaseBar()
+                stamina_bar.draw()
             if pressed[pygame.K_LEFT]:
                 player.moveLeft()
             if pressed[pygame.K_RIGHT]:
                 player.moveRight()
-            
 
             # refresh screen
             self.screen.fill(colors['BLACK'])
@@ -65,6 +70,9 @@ class Game4Main:
 
             player.update()
             player.draw()
+
+            stamina_bar.increaseBar()
+            stamina_bar.draw()
 
             # update current time
             current_time = pygame.time.get_ticks()
