@@ -40,7 +40,7 @@ class Player:
         self.screen = screen
         self.speed = 5
         self.jumpInProgress = False
-        self.v = 10
+        self.v = 7.5
         self.m = 2.5
         self.floor = play_y
 
@@ -85,3 +85,28 @@ class Player:
         return False
 
 
+
+class StaminaBar:
+
+    def __init__(self, screen):
+        self.screen = screen
+        self.bars = 100
+        self.clock = pygame.time.Clock()
+        self.prev_time = 0
+        self.player_jump = False
+
+    def draw(self):
+        pygame.draw.rect(self.screen, colors['WHITE'], [20, 20, self.bars, 10])
+
+    def decreaseBar(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.prev_time >= 100:
+            self.bars -= 10
+            self.prev_time = current_time
+
+    def increaseBar(self):
+        if self.bars < 100:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.prev_time >= 250:
+                self.bars += 1
+                self.prev_time = current_time
