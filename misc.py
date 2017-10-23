@@ -12,18 +12,20 @@ colors = {'BLACK': (0, 0, 0),
 
 class Obstacle:
 
-    def __init__(self, obs_x, obs_y, obs_len, screen):
+    def __init__(self, obs_x, obs_y, obs_len, screen,color):
         self.obs_x = obs_x
         self.obs_y = obs_y
         self.obs_len = obs_len
         self.screen = screen
+        self.color = color
 
     def __repr__(self):
         return 'Obstacle({}, {}, {}, {})'.format(self.obs_x, self.obs_y, self.obs_len, self.screen)
 
     def moveForward(self):
         self.obs_x -= 20
-        pygame.draw.rect(self.screen, colors['BLUE'], [self.obs_x, self.obs_y, self.obs_len, self.obs_len])
+       # self.obs_y = height
+        pygame.draw.rect(self.screen, colors[self.color], [self.obs_x, self.obs_y, self.obs_len, self.obs_len])
 
     def isGone(self):
         return self.obs_x < -self.obs_len
@@ -83,22 +85,3 @@ class Player:
         return False
 
 
-def jump(ctime, startloc, height):
-    """
-    Changes the y position up one frame
-    #for i in range(21):
-        #print(jump(i,0)[1])
-    """
-    over = False
-    h = hight
-    t = 20
-    b = startloc
-    c = t/2
-    a =  h/((t/2)**2)
-    x = (ctime%20)
-    play_y = ((a*(x - c)**2)+b)
-
-
-    if (x == 0):
-        over = True
-    return [play_y, over]

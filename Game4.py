@@ -1,7 +1,7 @@
 import os, sys
 import pygame
 from random import randint
-from misc import Obstacle, Player, colors, jump
+from misc import *
 
 
 class Game4Main:
@@ -31,9 +31,14 @@ class Game4Main:
         obs_len = 25
         obs_x = self.width
         obs_y = self.height - obs_len
+        obstical_height = self.height - obs_len
         # create list of obstacles with first obstacle
         new_obstical = False
-        obstacles = [Obstacle(obs_x, obs_y, obs_len, self.screen)]
+        #Obstacle(obs_x, obs_y, obs_len, self.screen,'BLUE')
+        obstacles = []
+        player_obsticals = []
+
+
 
         # initialize time variables
         prev_time = 0
@@ -45,8 +50,15 @@ class Game4Main:
                 if event.type == pygame.QUIT:
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
+                    if event.key == pygame.K_z:
                         new_obstical = True
+                        obstical_height = obs_y
+                    if event.key == pygame.K_x:
+                        new_obstical = True
+                        obstical_height = obs_y-25
+                    if event.key == pygame.K_c:
+                        new_obstical = True
+                        obstical_height = obs_y-50
 
             # check keyboard
             down = pygame.key
@@ -70,11 +82,14 @@ class Game4Main:
             current_time = pygame.time.get_ticks()
 
             # generate obstacle at random time
-            if (current_time - prev_time > obs_dt) | new_obstical==True:
-                obstacles.append(Obstacle(obs_x, obs_y, obs_len, self.screen))
+            if (current_time - prev_time > obs_dt):
+               # obstacles.append(Obstacle(obs_x, obs_y, obs_len, self.screen,'BLUE'))
                 new_obstical = False
                 prev_time = current_time
                 obs_dt = randint(1000, 3000)
+            if (new_obstical == True):
+                new_obstical = False
+                obstacles.append(Obstacle(obs_x, obstical_height, obs_len, self.screen,'RED'))
 
             # move each obstacle forward
             for obstacle in obstacles:
