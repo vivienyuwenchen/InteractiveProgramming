@@ -68,7 +68,7 @@ class Player:
             if self.play_y >= self.floor:
                 self.play_y = self.floor
                 self.jumpInProgress = False
-                self.v = 7.5
+                self.v = 6
 
     def isCollide(self, obs_x, obs_y, obs_len):
         obs_x0 = obs_x
@@ -88,25 +88,27 @@ class Player:
 
 class StaminaBar:
 
-    def __init__(self, screen):
+    def __init__(self, screen, start, color):
         self.screen = screen
         self.bars = 100
         self.clock = pygame.time.Clock()
         self.prev_time = 0
         self.player_jump = False
+        self.color = color
+        self.start = start
 
     def draw(self):
-        pygame.draw.rect(self.screen, colors['WHITE'], [20, 20, self.bars, 10])
+        pygame.draw.rect(self.screen, colors[self.color], [self.start, 20, self.bars, 10])
 
-    def decreaseBar(self):
+    def decreaseBarleft(self, decrease):
         current_time = pygame.time.get_ticks()
         if current_time - self.prev_time >= 100:
-            self.bars -= 10
+            self.bars -= decrease
             self.prev_time = current_time
 
-    def increaseBar(self):
+    def increaseBarleft(self):
         if self.bars < 100:
             current_time = pygame.time.get_ticks()
             if current_time - self.prev_time >= 250:
-                self.bars += 1
+                self.bars += 6
                 self.prev_time = current_time

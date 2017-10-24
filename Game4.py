@@ -29,7 +29,8 @@ class Game4Main:
         player = Player(play_x, play_y, play_len, self.screen)
 
         # initialize stamina bar
-        stamina_bar = StaminaBar(self.screen)
+        P1_stamina_bar = StaminaBar(self.screen,25,"WHITE")
+        P2_stamina_bar = StaminaBar(self.screen,350,"RED")
 
         # initialize obstacle length, x and y coordinates
         obs_len = 25
@@ -68,10 +69,10 @@ class Game4Main:
             pygame.key.set_repeat(500, 30)
             down = pygame.key
             pressed = pygame.key.get_pressed()
-            if pressed[pygame.K_UP] and stamina_bar.bars >= 10:
+            if pressed[pygame.K_UP] and P1_stamina_bar.bars >= 25:
                 player.jump()
-                stamina_bar.decreaseBar()
-                stamina_bar.draw()
+                P1_stamina_bar.decreaseBarleft(15)
+                P1_stamina_bar.draw()
             if pressed[pygame.K_LEFT]:
                 player.moveLeft()
             if pressed[pygame.K_RIGHT]:
@@ -84,20 +85,21 @@ class Game4Main:
             player.update()
             player.draw()
 
-            stamina_bar.increaseBar()
-            stamina_bar.draw()
+           
+           
 
             # update current time
             current_time = pygame.time.get_ticks()
 
             # generate obstacle at random time
             if (current_time - prev_time > obs_dt):
-               # obstacles.append(Obstacle(obs_x, obs_y, obs_len, self.screen,'BLUE'))
+                #obstacles.append(Obstacle(obs_x, obs_y, obs_len, self.screen,'BLUE'))
                 new_obstical = False
                 prev_time = current_time
                 obs_dt = randint(1000, 3000)
-            if (new_obstical == True):
+            if (new_obstical == True and P2_stamina_bar.bars >= 33):
                 new_obstical = False
+                P2_stamina_bar.decreaseBarleft(33)
                 obstacles.append(Obstacle(obs_x, obstical_height, obs_len, self.screen,'RED'))
 
             # move each obstacle forward
@@ -108,7 +110,12 @@ class Game4Main:
                     self.gameOver()
             # remove obstacle from list if off screen
             obstacles = [obstacle for obstacle in obstacles if not obstacle.isGone()]
+            P1_stamina_bar.increaseBarleft()
+            P1_stamina_bar.draw()
+            P2_stamina_bar.increaseBarleft()
+            P2_stamina_bar.increaseBarleft()
 
+            P2_stamina_bar.draw()
             # update screen
             pygame.display.flip()
             self.clock.tick(30)
