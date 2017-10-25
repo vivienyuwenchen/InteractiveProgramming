@@ -12,7 +12,7 @@ colors = {'BLACK': (0, 0, 0),
 
 class Obstacle:
 
-    def __init__(self, obs_x, obs_y, obs_len, screen,color):
+    def __init__(self, obs_x, obs_y, obs_len, screen, color):
         self.obs_x = obs_x
         self.obs_y = obs_y
         self.obs_len = obs_len
@@ -79,10 +79,8 @@ class Player:
         play_x1 = self.play_x + self.play_len
         play_y0 = self.play_y
         play_y1 = self.play_y + self.play_len
-        if play_x0 in range(obs_x0, obs_x1) or play_x1 in range(obs_x0, obs_x1):
-            if play_y0 in range(obs_y0, obs_y1) or play_y1 in range(obs_y0, obs_y1):
-                return True
-        return False
+        if (play_x0 in range(obs_x0, obs_x1) or play_x1 in range(obs_x0, obs_x1)) and (int(play_y0) in range(obs_y0, obs_y1) or int(play_y1) in range(obs_y0, obs_y1)):
+            return True
 
 
 

@@ -85,8 +85,6 @@ class Game4Main:
             player.update()
             player.draw()
 
-           
-           
 
             # update current time
             current_time = pygame.time.get_ticks()
