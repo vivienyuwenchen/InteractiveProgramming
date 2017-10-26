@@ -128,7 +128,7 @@ class Game4Main:
 
             # check keyboard
             pressed = pygame.key.get_pressed()
-            if pressed[pygame.K_UP]:
+            if pressed[pygame.K_SPACE]:
                 self.mainLoop()
 
             gameover = pygame.image.load("gameover.png")
