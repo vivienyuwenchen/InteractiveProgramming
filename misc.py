@@ -11,66 +11,85 @@ colors = {'BLACK': (0, 0, 0),
 
 
 class Obstacle:
-
+    """A square obstacle, defined by its top left hand coordinate, length, and color.
+    Also takes in screen as an argument to draw the obstacle."""
     def __init__(self, obs_x, obs_y, obs_len, screen, color):
-        self.obs_x = obs_x
-        self.obs_y = obs_y
-        self.obs_len = obs_len
-        self.screen = screen
-        self.color = color
+        """Initialize the instance."""
+        self.obs_x = obs_x              # top left hand x coordinate
+        self.obs_y = obs_y              # top left hand y coordinate
+        self.obs_len = obs_len          # side length
+        self.screen = screen            # game screen
+        self.color = color              # color of obstacle
 
     def __repr__(self):
         return 'Obstacle({}, {}, {}, {})'.format(self.obs_x, self.obs_y, self.obs_len, self.screen)
 
     def moveForward(self):
+        """Update horizontal location and draw obstacle."""
         self.obs_x -= 20
-       # self.obs_y = height
         pygame.draw.rect(self.screen, colors[self.color], [self.obs_x, self.obs_y, self.obs_len, self.obs_len])
 
     def isGone(self):
+        """Check if obstacle is completely off screen."""
         return self.obs_x < -self.obs_len
 
 
 class Player:
-
+    """A square player, defined by its top left hand coordinate and length.
+    Also takes in screen as an argument to draw the player."""
     def __init__(self, play_x, play_y, play_len, screen):
-        self.play_x = play_x
-        self.play_y = play_y
-        self.play_len = play_len
-        self.screen = screen
-        self.speed = 5
-        self.jumpInProgress = False
-        self.v = 7.5
-        self.m = 2.5
-        self.floor = play_y
+        """Initialize the instance."""
+        self.play_x = play_x            # top left hand x coordinate
+        self.play_y = play_y            # top left hand y coordinate
+        self.play_len = play_len        # side length
+        self.screen = screen            # game screen
+        self.speed = 5                  # right/left speed
+        self.jumpInProgress = False     # initialize to False
+        self.v = 7.5                    # "velocity" for jump
+        self.m = 2.5                    # "mass" for jump
+        self.floor = play_y             # location of player before jump, used for comparison
 
     def draw(self):
+        """Draw player based on top left hand coordinate and length."""
         pygame.draw.rect(self.screen, colors['WHITE'], [self.play_x, self.play_y, self.play_len, self.play_len])
 
     def moveRight(self):
+        """Update horizontal location of player after moving right."""
         if self.play_x < 200:
             self.play_x += self.speed
 
     def moveLeft(self):
+        """Update horizontal location of player after moving left."""
         if self.play_x > 0:
             self.play_x -= self.speed
 
     def jump(self):
+        """Set jumping status."""
         self.jumpInProgress = True
 
     def update(self):
+        """Update height of player during jump."""
         if self.jumpInProgress:
+            # change in height = "mass" times "velocity"
             dy = self.m * self.v
 
+            # subtract height by change in height
             self.play_y -= dy
+            # decrease velocity
             self.v -= .75
 
+            # stop jumping if player has landed
             if self.play_y >= self.floor:
+                # prevent player from falling through the floor
                 self.play_y = self.floor
+                # no longer jumping
                 self.jumpInProgress = False
-                self.v = 6
+                # reset velocity
+                self.v = 7.5
 
     def isCollide(self, obs_x, obs_y, obs_len):
+        """Check collision of player with obstacle."""
+        # set coordinates for top left hand corner (0) and bottom right hand corner (1)
         obs_x0 = obs_x
         obs_x1 = obs_x + obs_len
         obs_y0 = obs_y
@@ -79,34 +98,41 @@ class Player:
         play_x1 = self.play_x + self.play_len
         play_y0 = self.play_y
         play_y1 = self.play_y + self.play_len
+        # check if player coordinates within obstacle coordinates
         if (play_x0 in range(obs_x0, obs_x1) or play_x1 in range(obs_x0, obs_x1)) and (int(play_y0) in range(obs_y0, obs_y1) or int(play_y1) in range(obs_y0, obs_y1)):
             return True
 
 
 
 class StaminaBar:
-
+    """A stamina bar, defined by its starting location and color.
+    Also takes in screen as an argument to draw the stamina bar."""
     def __init__(self, screen, start, color):
-        self.screen = screen
-        self.bars = 100
-        self.clock = pygame.time.Clock()
-        self.prev_time = 0
+        self.screen = screen            # game screen
+        self.start = start              # starting location of stamina bar
+        self.color = color              # color of stamina bar
+        self.bars = 100                 # initialize number of health bars
+        self.clock = pygame.time.Clock()# initialize clock
+        self.prev_time = 0              # initialize previous time
         self.player_jump = False
-        self.color = color
-        self.start = start
 
     def draw(self):
+        """Draw stamina bar based on color, starting location, and number of health bars."""
         pygame.draw.rect(self.screen, colors[self.color], [self.start, 20, self.bars, 10])
 
-    def decreaseBarleft(self, decrease):
+    def decreaseBarleft(self, num_bars):
+        """Decrease health bar by num_bars."""
         current_time = pygame.time.get_ticks()
-        if current_time - self.prev_time >= 100:
-            self.bars -= decrease
+        # debounce decreasing bars
+        if current_time - self.prev_time >= 50:
+            self.bars -= num_bars
             self.prev_time = current_time
 
     def increaseBarleft(self):
+        """Increase health bar continuously if number of bars is lower than 100."""
         if self.bars < 100:
             current_time = pygame.time.get_ticks()
-            if current_time - self.prev_time >= 250:
-                self.bars += 6
+            # increase stamina bar by 1 every .05 seconds
+            if current_time - self.prev_time >= 50:
+                self.bars += 1
                 self.prev_time = current_time

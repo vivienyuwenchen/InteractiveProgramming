@@ -22,6 +22,7 @@ class Game4Main:
 
 
     def mainLoop(self):
+        """Main screen for game."""
         # initialize player
         play_len = 25
         play_x = 100
@@ -42,8 +43,6 @@ class Game4Main:
         #Obstacle(obs_x, obs_y, obs_len, self.screen,'BLUE')
         obstacles = []
         player_obsticals = []
-
-
 
         # initialize time variables
         prev_time = 0
@@ -66,10 +65,8 @@ class Game4Main:
                         obstical_height = obs_y-50
 
             # check keyboard
-            pygame.key.set_repeat(500, 30)
-            down = pygame.key
             pressed = pygame.key.get_pressed()
-            if pressed[pygame.K_UP] and P1_stamina_bar.bars >= 25:
+            if pressed[pygame.K_UP] and P1_stamina_bar.bars >= 15:
                 player.jump()
                 P1_stamina_bar.decreaseBarleft(15)
                 P1_stamina_bar.draw()
@@ -120,6 +117,7 @@ class Game4Main:
 
 
     def gameOver(self):
+        """Game over screen."""
         # main event loop
         while 1:
             for event in pygame.event.get():
