@@ -43,19 +43,19 @@ class Player:
         self.play_y = play_y            # top left hand y coordinate
         self.play_len = play_len        # side length
         self.screen = screen            # game screen
-        self.speed = 5                  # right/left speed
+        self.speed = 10                  # right/left speed
         self.jumpInProgress = False     # initialize to False
         self.v = 7.5                    # "velocity" for jump
         self.m = 2.5                    # "mass" for jump
         self.floor = play_y             # location of player before jump, used for comparison
-
+        self.jumpcost = 30
     def draw(self):
         """Draw player based on top left hand coordinate and length."""
         pygame.draw.rect(self.screen, colors['WHITE'], [self.play_x, self.play_y, self.play_len, self.play_len])
 
     def moveRight(self):
         """Update horizontal location of player after moving right."""
-        if self.play_x < 200:
+        if self.play_x < 300:
             self.play_x += self.speed
 
     def moveLeft(self):
@@ -94,6 +94,7 @@ class Player:
         obs_x1 = obs_x + obs_len
         obs_y0 = obs_y
         obs_y1 = obs_y + obs_len
+
         play_x0 = self.play_x
         play_x1 = self.play_x + self.play_len
         play_y0 = self.play_y
@@ -124,15 +125,15 @@ class StaminaBar:
         """Decrease health bar by num_bars."""
         current_time = pygame.time.get_ticks()
         # debounce decreasing bars
-        if current_time - self.prev_time >= 50:
-            self.bars -= num_bars
-            self.prev_time = current_time
+        #if current_time - self.prev_time >= 50:
+        self.bars -= num_bars
+        self.prev_time = current_time
 
-    def increaseBarleft(self):
+    def increaseBarleft(self, speed = 1):
         """Increase health bar continuously if number of bars is lower than 100."""
         if self.bars < 100:
-            current_time = pygame.time.get_ticks()
+           # current_time = pygame.time.get_ticks()
             # increase stamina bar by 1 every .05 seconds
-            if current_time - self.prev_time >= 50:
-                self.bars += 1
-                self.prev_time = current_time
+            #if current_time - self.prev_time >= 10/self.speed:
+            self.bars += 1 * speed
+            #self.prev_time = current_time

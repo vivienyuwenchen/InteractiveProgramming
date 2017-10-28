@@ -65,11 +65,15 @@ class Game4Main:
                         obstical_height = obs_y-50
 
             # check keyboard
+
             pressed = pygame.key.get_pressed()
-            if pressed[pygame.K_UP] and P1_stamina_bar.bars >= 15:
-                player.jump()
-                P1_stamina_bar.decreaseBarleft(15)
-                P1_stamina_bar.draw()
+            if pressed[pygame.K_UP] and P1_stamina_bar.bars >= player.jumpcost:
+                if  player.play_y == (360 - player.play_len) :
+                    P1_stamina_bar.decreaseBarleft(player.jumpcost)
+                    player.jump()
+                    
+                    P1_stamina_bar.draw()
+                
             if pressed[pygame.K_LEFT]:
                 player.moveLeft()
             if pressed[pygame.K_RIGHT]:
@@ -78,7 +82,7 @@ class Game4Main:
             # refresh screen
             self.screen.fill(colors['BLACK'])
             #pygame.draw.rect(self.screen, colors['RED'], [0,self.height-(self.height/5),self.width,self.height/5])
-
+            
             player.update()
             player.draw()
 
@@ -106,10 +110,9 @@ class Game4Main:
             # remove obstacle from list if off screen
             obstacles = [obstacle for obstacle in obstacles if not obstacle.isGone()]
             P1_stamina_bar.increaseBarleft()
-            P1_stamina_bar.draw()
-            P2_stamina_bar.increaseBarleft()
-            P2_stamina_bar.increaseBarleft()
 
+            P2_stamina_bar.increaseBarleft(1.5)
+            P1_stamina_bar.draw()
             P2_stamina_bar.draw()
             # update screen
             pygame.display.flip()
