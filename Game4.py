@@ -19,11 +19,13 @@ class Game4Main:
         self.screen = pygame.display.set_mode((self.width, self.height))
         # create clock
         self.clock = pygame.time.Clock()
+        self.score = 0
 
 
     def mainLoop(self):
         """Main screen for game."""
         # initialize player
+        count = 0
         play_len = 25
         play_x = 100
         play_y = self.height - play_len
@@ -50,6 +52,7 @@ class Game4Main:
 
         # main event loop
         while 1:
+            count+=1
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -106,7 +109,7 @@ class Game4Main:
                 obstacle.moveForward()
                 # check for collision between player and obstacles
                 if player.isCollide(obstacle.obs_x, obstacle.obs_y, obstacle.obs_len):
-                    self.gameOver()
+                    self.gameOver(str(count))
             # remove obstacle from list if off screen
             obstacles = [obstacle for obstacle in obstacles if not obstacle.isGone()]
             P1_stamina_bar.increaseBarleft()
@@ -114,12 +117,18 @@ class Game4Main:
             P2_stamina_bar.increaseBarleft(1.5)
             P1_stamina_bar.draw()
             P2_stamina_bar.draw()
+
+            
+            font = pygame.font.SysFont("comicsansms", 72)
+            text = font.render(str(count), True, (255,255,255))
+            self.screen.blit(text,[200,10])
             # update screen
             pygame.display.flip()
             self.clock.tick(30)
+           
 
 
-    def gameOver(self):
+    def gameOver(self,score):
         """Game over screen."""
         # main event loop
         while 1:
@@ -131,10 +140,15 @@ class Game4Main:
             pressed = pygame.key.get_pressed()
             if pressed[pygame.K_SPACE]:
                 self.mainLoop()
-
-            gameover = pygame.image.load("gameover.png")
-            gameover = pygame.transform.scale(gameover, (int(3*self.width/4), int(self.height/2)))
-            self.screen.blit(gameover, (int(self.width/8), int(self.height/4)))
+            self.screen.fill(colors['BLACK'])
+            font = pygame.font.SysFont("comicsansms", 28)
+            text = font.render("Player 1 recived a score of " + str(score), True, (255,255,255))
+            self.screen.blit(text,[50,140])
+            text = font.render("Press Space Bar to play again", True, (255,255,255))
+            self.screen.blit(text,[50,178])
+            #gameover = pygame.image.load("gameover.png")
+            #gameover = pygame.transform.scale(gameover, (int(3*self.width/4), int(self.height/2)))
+            #self.screen.blit(gameover, (int(self.width/8), int(self.height/4)))
 
             pygame.display.flip()
 
