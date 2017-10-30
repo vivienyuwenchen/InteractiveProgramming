@@ -10,20 +10,20 @@ Blockade is competitive arcade game. It has two players. Player 1 is a white blo
 
 *Present what you accomplished. This will be different for each project, but screenshots are likely to be helpful.*
 
-The game starts with Player 1 on the bottom left corner of the screen. Player 1’s objective is simple, avoid obstacles and get as far as you can.  Player 1 can avoid obstacles by moving left, right or jumping. These actions are performed by pressing the Left, Right, and Up arrow keys respectively.  Player 2 does not show up on screen but can make is presence known by throwing obstacles at Player 1. These obstacles can be thrown at three heights: ground level, just over Player 1 and High in the air. Player 2 can control the height of the obstacles thrown by pressing the Z, X, and C keys. The game ends when Player 1 collides with an obstacle and dies, Player 1’s score is determined by how long they survived. The competitive nature of the game come when the human players swap roles. With both trying to ensure the other gets a lower score.
+The game starts with Player 1 on the bottom left corner of the screen. Player 1’s objective is simple, avoid obstacles and get as far as you can.  Player 1 can avoid obstacles by moving left, right or jumping. These actions are performed by pressing the Left, Right, and Up arrow keys respectively. Player 2 does not show up on screen but can make is presence known by throwing obstacles at Player 1. These obstacles can be thrown at three heights: ground level, just over Player 1 and High in the air. Player 2 can control the height of the obstacles thrown by pressing the Z, X, and C keys. The game ends when Player 1 collides with an obstacle and dies, Player 1’s score is determined by how long they survived. The competitive nature of the game come when the human players swap roles. With both trying to ensure the other gets a lower score.
 
-Player actions cost stamina. If a player’s stamina gets too low, they cannot perform any actions until it regenerates.  This adds another level of strategy to the game with each player trying to force the other to deplete their stamina bar. In the game, Player 2’s strategy heavily relies on forcing Player 1 to run out of stamina.
+Player actions cost stamina. If a player’s stamina gets too low, they cannot perform any actions until it regenerates. This adds another level of strategy to the game with each player trying to force the other to deplete their stamina bar. In the game, Player 2’s strategy heavily relies on forcing Player 1 to run out of stamina.
 
-We playtested the game with around 9 individuals. Each person played at least one game as both players. Reviews were generally positive with testers describing it as "fascinating" and "A few minutes of mindless fun".
+We playtested the game with around 9 individuals. Each person played at least one game as both players. Reviews were generally positive with testers describing it as "fascinating" and "a few minutes of mindless fun".
 
 
 ![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot1.png)
 
-Figure 1: This is how the game starts.  Player 1 is the white square in the bottom left corner. PLayer 1’s distance is in the top center of the screen. The stamina bars for Player 1 and 2 are in the top left and right screen respectively.
+Figure 1: This is how the game starts. Player 1 is the white square in the bottom left corner. PLayer 1’s distance is in the top center of the screen. The stamina bars for Player 1 and 2 are in the top left and right screen respectively.
 
 ![screenshot2](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot2.png)
 
-Figure 2: During the game Player 1 avoids the red obstacles by jumping. Player 2 can spawn red obstacles at multiple heights. Player 2’s staminal bar(red) has almost been depleted.
+Figure 2: During the game Player 1 avoids the red obstacles by jumping. Player 2 can spawn red obstacles at multiple heights. Player 2’s staminal bar (red) has almost been depleted.
 
 ![screenshot3](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot3.png)
 
@@ -37,9 +37,11 @@ Our minimum viable product was a one player game similar to Google Chrome's dino
 
 We got our MVP done by the mid-project check-in, so we added additional features to allow a second player to control the obstacles. We then created another class for the stamina bar, with one method to decrease the bar with every action (i.e. when the player jumps for the player's stamina bar and when an obstacle is generated for the second player's stamina bar) and increase the bar over time up to a certain length.
 
-At one point, we considered implementing Model View Control. However, given the simplicity of our game, it wasn't worth rewriting whole sections just to split up the view and control into different classes. It would have cut down on the length of our mainLoop, but the pros just didn't outweigh the cons. Another decision that we made was to not create a subclass for each of the stamina bars since we only needed two and their only differences were their color and location, so we took those parameters as arguments instead.
-
 ![UML](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/UML.png)
+
+Figure 4: UML diagram of game
+
+At one point, we considered implementing Model View Control. However, given the simplicity of our game, it wasn't worth rewriting whole sections just to split up the view and control into different classes. It would have cut down on the length of our mainLoop, but the pros just didn't outweigh the cons. Another decision that we made was to not create a subclass for each of the stamina bars since we only needed two and their only differences were their color and location, so we took those parameters as arguments instead. We also kept remnants of the code that randomized obstacles from our MVP in case we wanted to revise the code to allow the player choose their mode: one-player or two-player.
 
 ### Reflection [~2 paragraphs]
 
