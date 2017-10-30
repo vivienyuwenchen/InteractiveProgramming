@@ -89,12 +89,12 @@ class Player:
 
     def isCollide(self, obs_x, obs_y, obs_len):
         """Check collision of player with obstacle."""
-        # set coordinates for top left hand corner (0) and bottom right hand corner (1)
+        # set coordinates for top left hand corner (0) and bottom right hand corner (1) of obstacle
         obs_x0 = obs_x
         obs_x1 = obs_x + obs_len
         obs_y0 = obs_y
         obs_y1 = obs_y + obs_len
-
+        # and of player
         play_x0 = self.play_x
         play_x1 = self.play_x + self.play_len
         play_y0 = self.play_y
@@ -102,7 +102,6 @@ class Player:
         # check if player coordinates within obstacle coordinates
         if (play_x0 in range(obs_x0, obs_x1) or play_x1 in range(obs_x0, obs_x1)) and (int(play_y0) in range(obs_y0, obs_y1) or int(play_y1) in range(obs_y0, obs_y1)):
             return True
-
 
 
 class StaminaBar:
@@ -113,9 +112,6 @@ class StaminaBar:
         self.start = start              # starting location of stamina bar
         self.color = color              # color of stamina bar
         self.bars = 100                 # initialize number of health bars
-        self.clock = pygame.time.Clock()# initialize clock
-        self.prev_time = 0              # initialize previous time
-        self.player_jump = False
 
     def draw(self):
         """Draw stamina bar based on color, starting location, and number of health bars."""
@@ -123,17 +119,9 @@ class StaminaBar:
 
     def decreaseBarleft(self, num_bars):
         """Decrease health bar by num_bars."""
-        current_time = pygame.time.get_ticks()
-        # debounce decreasing bars
-        #if current_time - self.prev_time >= 50:
         self.bars -= num_bars
-        self.prev_time = current_time
 
     def increaseBarleft(self, speed = 1):
         """Increase health bar continuously if number of bars is lower than 100."""
         if self.bars < 100:
-           # current_time = pygame.time.get_ticks()
-            # increase stamina bar by 1 every .05 seconds
-            #if current_time - self.prev_time >= 10/self.speed:
             self.bars += 1 * speed
-            #self.prev_time = current_time
