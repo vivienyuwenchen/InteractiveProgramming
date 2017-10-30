@@ -21,13 +21,13 @@ We playtested the game with around 9 individuals. Each person played at least on
 
 Figure 1: This is how the game starts.  Player 1 is the white square in the bottom left corner. PLayer 1’s distance is in the top center of the screen. The stamina bars for Player 1 and 2 are in the top left and right screen respectively.
 
-![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot2.png)
+![screenshot2](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot2.png)
 
 Figure 2: During the game Player 1 avoids the red obstacles by jumping. Player 2 can spawn red obstacles at multiple heights. Player 2’s staminal bar(red) has almost been depleted.
 
-![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot3.png)
+![screenshot3](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot3.png)
 
-Figure 3: Game over screen reports the distance Player 1 traveled and gives instructions for how to play again. 
+Figure 3: Game over screen reports the distance Player 1 traveled and gives instructions for how to play again.
 
 ### Implementation [~2-3 paragraphs + UML diagram]
 
@@ -38,6 +38,8 @@ Our minimum viable product was a one player game similar to Google Chrome's dino
 We got our MVP done by the mid-project check-in, so we added additional features to allow a second player to control the obstacles. We then created another class for the stamina bar, with one method to decrease the bar with every action (i.e. when the player jumps for the player's stamina bar and when an obstacle is generated for the second player's stamina bar) and increase the bar over time up to a certain length.
 
 At one point, we considered implementing Model View Control. However, given the simplicity of our game, it wasn't worth rewriting whole sections just to split up the view and control into different classes. It would have cut down on the length of our mainLoop, but the pros just didn't outweigh the cons. Another decision that we made was to not create a subclass for each of the stamina bars since we only needed two and their only differences were their color and location, so we took those parameters as arguments instead.
+
+![UML](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/UML.png)
 
 ### Reflection [~2 paragraphs]
 
