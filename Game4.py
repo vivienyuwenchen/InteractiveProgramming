@@ -78,7 +78,7 @@ class Game4Main:
             # up to jump
             if pressed[pygame.K_UP] and P1_stamina_bar.bars >= player.jumpcost:
                 if  player.play_y == (360 - player.play_len):
-                    P1_stamina_bar.decreaseBarleft(player.jumpcost)
+                    P1_stamina_bar.decreaseBar(player.jumpcost)
                     player.jump()
                     P1_stamina_bar.draw()
             # left to move left
@@ -108,7 +108,7 @@ class Game4Main:
             # generate obstacle player's obstacle at appropriate height
             if (new_obstical == True and P2_stamina_bar.bars >= 33):
                 new_obstical = False
-                P2_stamina_bar.decreaseBarleft(33)
+                P2_stamina_bar.decreaseBar(33)
                 obstacles.append(Obstacle(obs_x, obstical_height, obs_len, self.screen,'RED'))
 
             # move each obstacle forward
@@ -121,8 +121,8 @@ class Game4Main:
             obstacles = [obstacle for obstacle in obstacles if not obstacle.isGone()]
 
             # update stamina bars
-            P1_stamina_bar.increaseBarleft()
-            P2_stamina_bar.increaseBarleft(1.5)
+            P1_stamina_bar.increaseBar()
+            P2_stamina_bar.increaseBar(1.5)
             P1_stamina_bar.draw()
             P2_stamina_bar.draw()
 

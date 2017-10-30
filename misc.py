@@ -49,6 +49,7 @@ class Player:
         self.m = 2.5                    # "mass" for jump
         self.floor = play_y             # location of player before jump, used for comparison
         self.jumpcost = 30
+
     def draw(self):
         """Draw player based on top left hand coordinate and length."""
         pygame.draw.rect(self.screen, colors['WHITE'], [self.play_x, self.play_y, self.play_len, self.play_len])
@@ -117,11 +118,11 @@ class StaminaBar:
         """Draw stamina bar based on color, starting location, and number of health bars."""
         pygame.draw.rect(self.screen, colors[self.color], [self.start, 20, self.bars, 10])
 
-    def decreaseBarleft(self, num_bars):
+    def decreaseBar(self, num_bars):
         """Decrease health bar by num_bars."""
         self.bars -= num_bars
 
-    def increaseBarleft(self, speed = 1):
+    def increaseBar(self, speed = 1):
         """Increase health bar continuously if number of bars is lower than 100."""
         if self.bars < 100:
             self.bars += 1 * speed
