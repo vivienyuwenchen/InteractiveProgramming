@@ -14,6 +14,12 @@ The game starts with Player 1 on the bottom left corner of the screen. Player 1�
 
 Player actions cost stamina. If a player’s stamina gets too low, they cannot perform any actions until it regenerates.  This adds another level of strategy to the game with each player trying to force the other to deplete their stamina bar. In the game, Player 2’s strategy heavily relies on forcing Player 1 to run out of stamina.
 
+![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot1.png)
+
+![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot2.png)
+
+![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot3.png)
+
 ### Implementation [~2-3 paragraphs + UML diagram]
 
 *Describe your implementation at a system architecture level. Include a UML class diagram, and talk about the major components, algorithms, data structures and how they fit together. You should also discuss at least one design decision where you had to choose between multiple alternatives, and explain why you made the choice you did.*
