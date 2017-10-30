@@ -14,6 +14,9 @@ The game starts with Player 1 on the bottom left corner of the screen. Player 1�
 
 Player actions cost stamina. If a player’s stamina gets too low, they cannot perform any actions until it regenerates.  This adds another level of strategy to the game with each player trying to force the other to deplete their stamina bar. In the game, Player 2’s strategy heavily relies on forcing Player 1 to run out of stamina.
 
+We playtested the game with around 9 individuals. Each person played at least one game as both players. Reviews were generally positive with testers describing it as "fascinating" and "A few minutes of mindless fun".
+
+
 ![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot1.png)
 
 Figure 1: This is how the game starts.  Player 1 is the white square in the bottom left corner. PLayer 1’s distance is in the top center of the screen. The stamina bars for Player 1 and 2 are in the top left and right screen respectively.
