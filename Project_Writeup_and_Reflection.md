@@ -16,9 +16,15 @@ Player actions cost stamina. If a player’s stamina gets too low, they cannot p
 
 ![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot1.png)
 
+Figure 1: This is how the game starts.  Player 1 is the white square in the bottom left corner. PLayer 1’s distance is in the top center of the screen. The stamina bars for Player 1 and 2 are in the top left and right screen respectively.
+
 ![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot2.png)
 
+Figure 2: During the game Player 1 avoids the red obstacles by jumping. Player 2 can spawn red obstacles at multiple heights. Player 2’s staminal bar(red) has almost been depleted.
+
 ![screenshot1](https://github.com/vivienyuwenchen/InteractiveProgramming/blob/master/screenshot3.png)
+
+Figure 3: Game over screen reports the distance Player 1 traveled and gives instructions for how to play again. 
 
 ### Implementation [~2-3 paragraphs + UML diagram]
 
