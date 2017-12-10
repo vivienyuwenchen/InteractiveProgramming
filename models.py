@@ -1,13 +1,7 @@
 import os, sys
 import pygame
 
-
-colors = {'BLACK': (0, 0, 0),
-            'WHITE' : (255, 255, 255),
-            'GREEN' : (0, 255, 0),
-            'RED' : (255, 0, 0),
-            'BLUE' : (0, 0, 255),
-            }
+from config import *
 
 
 class Obstacle:
@@ -24,12 +18,15 @@ class Obstacle:
     def __repr__(self):
         return 'Obstacle({}, {}, {}, {})'.format(self.obs_x, self.obs_y, self.obs_len, self.screen)
 
-    def moveForward(self):
-        """Update horizontal location and draw obstacle."""
-        self.obs_x -= 20
+    def draw(self):
+        """Draw osbstacle based on top left hand coordinate and length."""
         pygame.draw.rect(self.screen, colors[self.color], [self.obs_x, self.obs_y, self.obs_len, self.obs_len])
 
-    def isGone(self):
+    def move_forward(self):
+        """Update horizontal location of obstacle."""
+        self.obs_x -= 20
+
+    def is_gone(self):
         """Check if obstacle is completely off screen."""
         return self.obs_x < -self.obs_len
 
@@ -48,18 +45,17 @@ class Player:
         self.v = 7.5                    # "velocity" for jump
         self.m = 2.5                    # "mass" for jump
         self.floor = play_y             # location of player before jump, used for comparison
-        self.jumpcost = 30
 
     def draw(self):
         """Draw player based on top left hand coordinate and length."""
         pygame.draw.rect(self.screen, colors['WHITE'], [self.play_x, self.play_y, self.play_len, self.play_len])
 
-    def moveRight(self):
+    def move_right(self):
         """Update horizontal location of player after moving right."""
         if self.play_x < 300:
             self.play_x += self.speed
 
-    def moveLeft(self):
+    def move_left(self):
         """Update horizontal location of player after moving left."""
         if self.play_x > 0:
             self.play_x -= self.speed
@@ -88,7 +84,7 @@ class Player:
                 # reset velocity
                 self.v = 7.5
 
-    def isCollide(self, obs_x, obs_y, obs_len):
+    def is_collide(self, obs_x, obs_y, obs_len):
         """Check collision of player with obstacle."""
         # set coordinates for top left hand corner (0) and bottom right hand corner (1) of obstacle
         obs_x0 = obs_x
@@ -101,7 +97,7 @@ class Player:
         play_y0 = self.play_y
         play_y1 = self.play_y + self.play_len
         # check if player coordinates within obstacle coordinates
-        if (play_x0 in range(obs_x0, obs_x1) or play_x1 in range(obs_x0, obs_x1)) and (int(play_y0) in range(obs_y0, obs_y1) or int(play_y1) in range(obs_y0, obs_y1)):
+        if (obs_x0 <= play_x0 <= obs_x1 or obs_x0 <= play_x1 <= obs_x1) and (obs_y0 <= play_y0 < obs_y1 or obs_y0 < play_y1 <= obs_y1):
             return True
 
 
@@ -118,11 +114,11 @@ class StaminaBar:
         """Draw stamina bar based on color, starting location, and number of health bars."""
         pygame.draw.rect(self.screen, colors[self.color], [self.start, 20, self.bars, 10])
 
-    def decreaseBar(self, num_bars):
+    def decrease_bar(self, num_bars):
         """Decrease health bar by num_bars."""
         self.bars -= num_bars
 
-    def increaseBar(self, speed = 1):
+    def increase_bar(self, speed = 1):
         """Increase health bar continuously if number of bars is lower than 100."""
         if self.bars < 100:
             self.bars += 1 * speed
